@@ -1,0 +1,276 @@
+{
+  "braziers": [
+    {
+      "name": "Brazier_BastionSteps_N",
+      "base": [
+        2.6,
+        11.6,
+        5.5
+      ],
+      "flame": [
+        2.6,
+        12.6,
+        5.5
+      ],
+      "light": [
+        2.6,
+        13.08,
+        5.5
+      ],
+      "power": 169.8,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_BastionSteps_S",
+      "base": [
+        -0.1,
+        11.6,
+        12.6
+      ],
+      "flame": [
+        -0.1,
+        12.6,
+        12.6
+      ],
+      "light": [
+        -0.1,
+        13.08,
+        12.6
+      ],
+      "power": 145.0,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_Bastion_Deck",
+      "base": [
+        10.5,
+        12.8,
+        7.2
+      ],
+      "flame": [
+        10.5,
+        13.8,
+        7.2
+      ],
+      "light": [
+        10.5,
+        14.28,
+        7.2
+      ],
+      "power": 139.2,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_Courtyard_Gate",
+      "base": [
+        -24.0,
+        0.0,
+        -2.5
+      ],
+      "flame": [
+        -24.0,
+        1.0,
+        -2.5
+      ],
+      "light": [
+        -24.0,
+        1.48,
+        -2.5
+      ],
+      "power": 196.8,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_Hall_CenterPier",
+      "base": [
+        -8.3,
+        10.6,
+        12.55
+      ],
+      "flame": [
+        -8.3,
+        11.6,
+        12.55
+      ],
+      "light": [
+        -8.3,
+        12.08,
+        12.55
+      ],
+      "power": 190.2,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_Hall_EastPier",
+      "base": [
+        -2.72,
+        10.6,
+        12.55
+      ],
+      "flame": [
+        -2.72,
+        11.6,
+        12.55
+      ],
+      "light": [
+        -2.72,
+        12.08,
+        12.55
+      ],
+      "power": 104.0,
+      "isInner": false
+    },
+    {
+      "name": "Brazier_Hall_Inner_1",
+      "base": [
+        -6.5,
+        10.62,
+        18.4
+      ],
+      "flame": [
+        -6.5,
+        11.62,
+        18.4
+      ],
+      "light": [
+        -6.5,
+        12.1,
+        18.4
+      ],
+      "power": 205.5,
+      "isInner": true
+    },
+    {
+      "name": "Brazier_Hall_Inner_2",
+      "base": [
+        -10.1,
+        10.62,
+        18.4
+      ],
+      "flame": [
+        -10.1,
+        11.62,
+        18.4
+      ],
+      "light": [
+        -10.1,
+        12.1,
+        18.4
+      ],
+      "power": 258.5,
+      "isInner": true
+    },
+    {
+      "name": "Brazier_Hall_WestPier",
+      "base": [
+        -14.05,
+        10.6,
+        12.55
+      ],
+      "flame": [
+        -14.05,
+        11.6,
+        12.55
+      ],
+      "light": [
+        -14.05,
+        12.08,
+        12.55
+      ],
+      "power": 158.8,
+      "isInner": false
+    }
+  ],
+  "torches": [
+    {
+      "name": "Stair_Torch_Lower_N",
+      "base": [
+        -7.8,
+        9.85,
+        3.22
+      ],
+      "flame": [
+        -7.8,
+        10.3111,
+        3.6852
+      ],
+      "light": [
+        -7.8,
+        10.6111,
+        3.9052
+      ],
+      "power": 129.1
+    },
+    {
+      "name": "Stair_Torch_Lower_S",
+      "base": [
+        -7.8,
+        9.55,
+        7.58
+      ],
+      "flame": [
+        -7.8,
+        10.0111,
+        7.1148
+      ],
+      "light": [
+        -7.8,
+        10.3111,
+        6.8948
+      ],
+      "power": 98.8
+    },
+    {
+      "name": "Stair_Torch_Upper_N",
+      "base": [
+        -2.4,
+        11.2,
+        3.22
+      ],
+      "flame": [
+        -2.4,
+        11.6611,
+        3.6852
+      ],
+      "light": [
+        -2.4,
+        11.9611,
+        3.9052
+      ],
+      "power": 129.7
+    },
+    {
+      "name": "Stair_Torch_Upper_S",
+      "base": [
+        -2.2,
+        10.72,
+        7.58
+      ],
+      "flame": [
+        -2.2,
+        11.1811,
+        7.1148
+      ],
+      "light": [
+        -2.2,
+        11.4811,
+        6.8948
+      ],
+      "power": 140.6
+    }
+  ],
+  "sun": {
+    "direction": [
+      -0.2815,
+      -0.553,
+      0.7842
+    ],
+    "energy": 1.85,
+    "color": [
+      0.78,
+      0.86,
+      0.96
+    ]
+  },
+  "bounds": {}
+}

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0b1017" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>قلعة باشطابيا — جولة افتراضية ثلاثية الأبعاد</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-CGAAaokW.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CnUNnD9w.css">
+  </head>
+  <body>
+    <div id="canvas-container"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="loader">
+      <div class="loader-card">
+        <div class="loader-emblem">🏰</div>
+        <h1>قلعة باشطابيا الأثرية</h1>
+        <p class="loader-sub">جولة افتراضية سينمائية • ضفاف نهر دجلة، الموصل</p>
+        <div class="progress-track">
+          <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <div id="progress-text" class="progress-text">جاري تحميل المجسم الكامل... 0%</div>
+      </div>
+    </div>
+
+    <!-- Toast Notification (e.g. falling into Tigris River) -->
+    <div id="toast" class="toast glass hidden"></div>
+
+    <!-- Main HUD -->
+    <div id="hud" class="hud">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="brand glass">
+          <div class="brand-dot"></div>
+          <div>
+            <div class="brand-title">قلعة باشطابيا الأثرية</div>
+            <div class="brand-sub">الموصل • نهر دجلة • دقة كاملة</div>
+          </div>
+        </div>
+
+        <div class="top-actions">
+          <div id="fps-badge" class="pill glass" title="معدل الإطارات">-- FPS</div>
+          <button id="btn-audio" class="icon-btn glass" title="صوت المطر والنار">
+            <span class="ico">🔇</span>
+            <span class="lbl">الصوت</span>
+          </button>
+          <button id="btn-stops" class="icon-btn glass" title="محطات الجولة">
+            <span class="ico">📍</span>
+            <span class="lbl">المحطات</span>
+          </button>
+          <button id="btn-settings" class="icon-btn glass" title="التأثيرات والأداء">
+            <span class="ico">⚙️</span>
+            <span class="lbl">التأثيرات</span>
+          </button>
+          <button id="btn-fullscreen" class="icon-btn glass" title="ملء الشاشة">
+            <span class="ico">⛶</span>
+          </button>
+          <button id="btn-hide-hud" class="icon-btn glass" title="إخفاء الواجهة (H)">
+            <span class="ico">👁️</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Auto-Fading Walkthrough Hint Banner -->
+      <div id="walk-hint" class="walk-hint glass hidden">
+        <span id="walk-hint-text">
+          <strong>وضع التجول مشياً:</strong> <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> للمشي • اسحب بالفأرة للالتفات • <kbd>Space</kbd> للقفز • <kbd>Shift</kbd> للركض
+        </span>
+        <button id="btn-close-hint" class="hint-close" title="إغلاق">✕</button>
+      </div>
+
+      <!-- Mobile Touch Controls (Shown in Walkthrough Mode on Touch Devices or when toggled) -->
+      <div id="mobile-controls" class="mobile-controls hidden">
+        <div id="joystick-zone" class="joystick-zone" aria-label="عصا الحركة">
+          <div class="joystick-base">
+            <div id="joystick-knob" class="joystick-knob"></div>
+          </div>
+        </div>
+        <div class="mobile-action-btns">
+          <button id="btn-mobile-jump" class="mobile-action-btn glass" aria-label="قفز">⬆ قفز</button>
+          <button id="btn-mobile-sprint" class="mobile-action-btn glass" aria-label="ركض">⚡ ركض</button>
+        </div>
+      </div>
+
+      <!-- Stops Drawer -->
+      <aside id="drawer-stops" class="drawer glass hidden">
+        <div class="drawer-head">
+          <h2>محطات الجولة الافتراضية</h2>
+          <button class="close-btn" data-close="drawer-stops">✕</button>
+        </div>
+        <div id="stops-list" class="stops-list"></div>
+      </aside>
+
+      <!-- Settings Drawer -->
+      <aside id="drawer-settings" class="drawer glass hidden">
+        <div class="drawer-head">
+          <h2>التأثيرات البصرية وإعدادات الهاتف</h2>
+          <button class="close-btn" data-close="drawer-settings">✕</button>
+        </div>
+
+        <div class="setting-group">
+          <div class="setting-label">مستوى الأداء (مع الحفاظ على 100% من تفاصيل المجسم)</div>
+          <div class="segmented" id="quality-segmented">
+            <button data-quality="high" class="active">عالي</button>
+            <button data-quality="balanced">متوازن</button>
+            <button data-quality="light">خفيف</button>
+          </div>
+        </div>
+
+        <div class="setting-group toggles">
+          <label class="toggle-row">
+            <span>📱 أزرار اللمس للهاتف (في وضع المشي)</span>
+            <input type="checkbox" id="toggle-touch-controls" />
+          </label>
+          <label class="toggle-row">
+            <span>🌧️ تساقط المطر (3 طبقات)</span>
+            <input type="checkbox" id="toggle-rain" checked />
+          </label>
+          <label class="toggle-row">
+            <span>🔥 الشعلة والشرر المتطاير</span>
+            <input type="checkbox" id="toggle-fire" checked />
+          </label>
+          <label class="toggle-row">
+            <span>💨 الدخان المتصاعد وضباب الوادي</span>
+            <input type="checkbox" id="toggle-smoke" checked />
+          </label>
+          <label class="toggle-row">
+            <span>💧 برك الأرض وتموجات المطر</span>
+            <input type="checkbox" id="toggle-puddles" checked />
+          </label>
+          <label class="toggle-row">
+            <span>🌊 حركة نهر دجلة</span>
+            <input type="checkbox" id="toggle-river" checked />
+          </label>
+          <label class="toggle-row">
+            <span>🕊️ الطيور المحلقة</span>
+            <input type="checkbox" id="toggle-birds" checked />
+          </label>
+          <label class="toggle-row">
+            <span>✨ التوهج السينمائي (Bloom)</span>
+            <input type="checkbox" id="toggle-bloom" checked />
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <div class="setting-label">كثافة المطر: <span id="rain-val">100%</span></div>
+          <input type="range" id="slider-rain" min="20" max="150" value="100" />
+        </div>
+
+        <div class="setting-group">
+          <div class="setting-label">حساسية الالتفات باللمس/الفأرة: <span id="sens-val">100%</span></div>
+          <input type="range" id="slider-sens" min="40" max="200" value="100" />
+        </div>
+      </aside>
+
+      <!-- Bottom Floating Dock -->
+      <footer class="bottom-dock">
+        <!-- Current Shot Info Card -->
+        <div id="shot-banner" class="shot-banner glass">
+          <div class="shot-meta">
+            <span id="shot-index" class="shot-badge">1 / 10</span>
+            <h3 id="shot-title">الإطلالة الأولى من نهر دجلة</h3>
+          </div>
+          <p id="shot-desc">انبثاق قلعة باشطابيا الأثرية وسط الضباب والمطر على ضفاف دجلة.</p>
+          <div class="tour-progress-wrap">
+            <div id="tour-progress-fill" class="tour-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="dock-bar glass">
+          <div class="mode-tabs" id="mode-tabs">
+            <button data-mode="tour" class="active">🎬 جولة سينمائية</button>
+            <button data-mode="orbit">🧭 استكشاف حر</button>
+            <button data-mode="walk">🚶 تجول مشي</button>
+          </div>
+
+          <div class="tour-controls" id="tour-controls">
+            <button id="btn-prev" class="ctrl-btn" title="المحطة السابقة">⏮</button>
+            <button id="btn-play" class="ctrl-btn primary" title="تشغيل / إيقاف">⏸</button>
+            <button id="btn-next" class="ctrl-btn" title="المحطة التالية">⏭</button>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Floating Restore HUD Button -->
+    <button id="btn-show-hud" class="restore-hud glass hidden" title="إظهار الواجهة (H)">
+      👁️ إظهار الواجهة
+    </button>
+
+  </body>
+</html>
